@@ -31,7 +31,7 @@ variable "hostname" {
 variable "vm_size" {
   type        = "string"
   description = "VM Size"
-  default     = "D2S_v3"
+  default     = "Standard_DS2_v2"
 }
 
 variable "image_publisher" {
