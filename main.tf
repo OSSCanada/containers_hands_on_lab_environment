@@ -111,7 +111,7 @@ resource "azurerm_managed_disk" "datadisk" {
 }
 
 # ***************************** VIRTUAL MACHINE **************************** #
-resource "azurerm_virtual_machine" "vm" {
+resource "azurerm_virtual_machine" "jumpbox" {
   name                  = "${var.hostname}${random_integer.random_int.result}"
   location              = "${azurerm_resource_group.rg.location}"
   resource_group_name   = "${azurerm_resource_group.rg.name}"
