@@ -101,15 +101,6 @@ resource "azurerm_storage_account" "stor" {
   account_replication_type = "${var.storage_replication_type}"
 }
 
-resource "azurerm_managed_disk" "datadisk" {
-  name                 = "${var.hostname}${random_integer.random_int.result}-datadisk"
-  location             = "${azurerm_resource_group.rg.location}"
-  resource_group_name  = "${azurerm_resource_group.rg.name}"
-  storage_account_type = "Standard_LRS"
-  create_option        = "Empty"
-  disk_size_gb         = "1023"
-}
-
 # ***************************** VIRTUAL MACHINE **************************** #
 resource "azurerm_virtual_machine" "jumpbox" {
   name                  = "${var.hostname}${random_integer.random_int.result}"
