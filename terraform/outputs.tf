@@ -1,4 +1,8 @@
-output "jumpbox_name" {
+output "jumpbox_username" {
+  value = "${azurerm_virtual_machine.jumpbox.name}"
+}
+
+output "jumpbox_hostname" {
   value = "${azurerm_virtual_machine.jumpbox.name}"
 }
 
