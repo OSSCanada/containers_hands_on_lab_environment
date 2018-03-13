@@ -9,8 +9,8 @@ fi
 
 cd terraform
 
-terraform init terraform
-terraform apply -auto-approve terraform
+terraform init
+terraform apply -auto-approve
 
 if [ $? -eq 0 ]; then
   export HOL_JUMPBOX_USERNAME=$(terraform ouput jumpbox_username)
