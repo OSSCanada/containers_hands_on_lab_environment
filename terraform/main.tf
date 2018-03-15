@@ -5,7 +5,7 @@ resource "random_integer" "random_int" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.resource_group_name}-${random_integer.random_int.result}"
+  name     = "${var.resource_group_name}"
   location = "${var.resource_group_location}"
 }
 
