@@ -133,7 +133,7 @@ resource "azurerm_virtual_machine" "jumpbox" {
 
     ssh_keys {
       path     = "/home/${var.admin_username}/.ssh/authorized_keys"
-      key_data = "${var.admin_ssh_key}"
+      key_data = "${file("~/.ssh/id_rsa.pub")}"
     }
   }
 

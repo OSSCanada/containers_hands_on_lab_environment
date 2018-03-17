@@ -59,9 +59,3 @@ variable "admin_username" {
   description = "Admin username for jumpbox VM"
   default     = "holadmin"
 }
-
-variable "admin_ssh_key" {
-  type        = "string"
-  description = "Admin user ssh key"
-  default     = "${file("~/.ssh/id_rsa.pub")}"
-}
