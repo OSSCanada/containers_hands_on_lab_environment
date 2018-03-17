@@ -1,5 +1,5 @@
-output "jumpbox_username" {
-  value = "${azurerm_virtual_machine.jumpbox.name}"
+output "jumpbox_admin_username" {
+  value = "${var.admin_username}"
 }
 
 output "jumpbox_hostname" {

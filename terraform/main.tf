@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "${azurerm_resource_group.rg.name}vnet"
+  name                = "${azurerm_resource_group.rg.name}-vnet"
   location            = "${azurerm_resource_group.rg.location}"
   address_space       = ["10.0.0.0/16"]
   resource_group_name = "${azurerm_resource_group.rg.name}"
@@ -126,11 +126,15 @@ resource "azurerm_virtual_machine" "jumpbox" {
   os_profile {
     computer_name  = "${var.hostname}${random_integer.random_int.result}"
     admin_username = "${var.admin_username}"
-    admin_password = "${var.admin_password}"
   }
 
   os_profile_linux_config {
-    disable_password_authentication = false
+    disable_password_authentication = true
+
+    ssh_keys {
+      path     = "/home/${var.admin_username}/.ssh/authorized_keys"
+      key_data = "${var.admin_ssh_key}"
+    }
   }
 
   boot_diagnostics {

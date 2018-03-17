@@ -60,8 +60,8 @@ variable "admin_username" {
   default     = "holadmin"
 }
 
-variable "admin_password" {
+variable "admin_ssh_key" {
   type        = "string"
-  description = "Admin user password"
-  default     = "Pa$$w0rd!"
+  description = "Admin user ssh key"
+  default     = "${file("~/.ssh/id_rsa.pub")}"
 }

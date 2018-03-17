@@ -13,13 +13,16 @@ terraform init
 terraform apply -auto-approve
 
 if [ $? -eq 0 ]; then
-  export HOL_JUMPBOX_USERNAME=$(terraform ouput jumpbox_username)
+  export HOL_JUMPBOX_ADMIN_USERNAME=$(terraform ouput jumpbox_admin_username)
   export HOL_JUMPBOX_FQDN=$(terraform output jumpbox_fqdn)
 
-  echo "Jumpbox username $HOL_JUMPBOX_USERNAME"
+  echo "Jumpbox admin username $HOL_JUMPBOX_ADMIN_USERNAME"
   echo "Jumpbox FQDN $HOLD_JUMPBOX_FQDN"
 else
   echo "Terraform Deployment Failed."
 fi
 
 cd $HOL_DEPLOYMENT_DIR/ansible
+
+# ansible all -i "$HOL_JUMPBOX_FQDN," -u $HOL_JUMPBOX_ADMIN_USERNAME
+ansible-playbook playbooks/PLAYBOOK_NAME.yml --limit "$HOL_JUMPBOX_FQDN" -u $HOL_JUMPBOX_ADMIN_USERNAME
