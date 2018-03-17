@@ -25,4 +25,5 @@ fi
 cd $HOL_DEPLOYMENT_DIR/ansible
 
 # ansible all -i "$HOL_JUMPBOX_FQDN," -u $HOL_JUMPBOX_ADMIN_USERNAME
-ansible-playbook playbooks/PLAYBOOK_NAME.yml --limit "c$HOL_JUMPBOX_FQDN" -u $HOL_JUMPBOX_ADMIN_USERNAME
+# ansible all -i "$HOL_JUMPBOX_FQDN," -u $HOL_JUMPBOX_ADMIN_USERNAME -m shell -a 'echo $TERM'
+ansible-playbook playbooks/PLAYBOOK_NAME.yml --limit "$HOL_JUMPBOX_FQDN" -u $HOL_JUMPBOX_ADMIN_USERNAME
