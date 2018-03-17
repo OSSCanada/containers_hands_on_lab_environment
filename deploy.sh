@@ -13,7 +13,7 @@ terraform init
 terraform apply -auto-approve
 
 if [ $? -eq 0 ]; then
-  export HOL_JUMPBOX_ADMIN_USERNAME=$(terraform ouput jumpbox_admin_username)
+  export HOL_JUMPBOX_ADMIN_USERNAME=$(terraform output jumpbox_admin_username)
   export HOL_JUMPBOX_FQDN=$(terraform output jumpbox_fqdn)
 
   echo "Jumpbox admin username $HOL_JUMPBOX_ADMIN_USERNAME"
