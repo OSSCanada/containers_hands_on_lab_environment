@@ -1,0 +1,37 @@
+---
+- hosts: all
+  sudo: True
+  tasks:
+  - name: Update packages list
+    apt: update_cache=yes
+
+  - name: Install Desktop GUI Environment (XFCE4)
+    apt:
+      name: xfce4
+      state: present
+
+  - name: Install RDP Server
+    apt:
+      name: xrdp
+      state: present
+
+  - name: Setup UFW rules
+    ufw:
+      rule: allow
+      port: ssh
+      proto: tcp
+  
+    ufw:
+      rule: allow
+      port: http
+      proto: tcp
+
+    ufw:
+      rule: allow
+      port: https
+      proto: tcp
+
+    ufw:
+      state: enabled
+      policy: deny
+  
