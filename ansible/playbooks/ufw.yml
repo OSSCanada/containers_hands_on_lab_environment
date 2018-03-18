@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Set Default Firewall/UFW values
+    ufw:
+      rule: allow
+      port: ssh
+      proto: tcp
+
+    ufw:
+      state: enabled
+      policy: deny

@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  sudo: True
+  become: True
   tasks:
   - name: Update packages list
     apt: update_cache=yes
@@ -15,23 +15,14 @@
       name: xrdp
       state: present
 
-  - name: Setup UFW rules
-    ufw:
-      rule: allow
-      port: ssh
-      proto: tcp
-  
-    ufw:
-      rule: allow
-      port: http
-      proto: tcp
+  - name: Enable XFCE4 as Desktop Env in xrdp config
+    - lineinfile:
+      path: /etc/xrdp/startwm.sh
+      regexp: '^startxfce4'
+      line: 'startxfce4'
 
+  - name: Allow RDP port 3389 in firewall/UFW settings
     ufw:
       rule: allow
-      port: https
+      port: 3389
       proto: tcp
-
-    ufw:
-      state: enabled
-      policy: deny
-  
