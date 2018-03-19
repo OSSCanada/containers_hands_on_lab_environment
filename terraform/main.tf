@@ -5,7 +5,7 @@ resource "random_integer" "random_int" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.resource_group_name}"
+  name     = "${var.resource_group_name}${random_integer.random_int.result}"
   location = "${var.resource_group_location}"
 }
 
@@ -88,7 +88,7 @@ resource "azurerm_network_security_group" "nsg" {
 
 # ************************** NETWORK INTERFACES **************************** #
 resource "azurerm_network_interface" "nic" {
-  name                      = "${azurerm_resource_group.rg.name}-nic"
+  name                      = "${var.hostname}${random_integer.random_int.result}-nic"
   location                  = "${azurerm_resource_group.rg.location}"
   resource_group_name       = "${azurerm_resource_group.rg.name}"
   network_security_group_id = "${azurerm_network_security_group.nsg.id}"
@@ -107,11 +107,11 @@ resource "azurerm_network_interface" "nic" {
 
 # ************************** PUBLIC IP ADDRESSES **************************** #
 resource "azurerm_public_ip" "pip" {
-  name                         = "${azurerm_resource_group.rg.name}-pip"
+  name                         = "${azurerm_virtual_machine.jumpbox.name}-pip"
   location                     = "${azurerm_resource_group.rg.location}"
   resource_group_name          = "${azurerm_resource_group.rg.name}"
   public_ip_address_allocation = "Dynamic"
-  domain_name_label            = "${var.hostname}${random_integer.random_int.result}"
+  domain_name_label            = "${azurerm_virtual_machine.jumpbox.name}"
 
   tags {
     environment = "Management"
@@ -120,7 +120,7 @@ resource "azurerm_public_ip" "pip" {
 
 # ***************************** STORAGE ACCOUNT **************************** #
 resource "azurerm_storage_account" "stor" {
-  name                     = "${var.hostname}${random_integer.random_int.result}stor"
+  name                     = "${azurerm_resource_group.rg.name}stor"
   location                 = "${azurerm_resource_group.rg.location}"
   resource_group_name      = "${azurerm_resource_group.rg.name}"
   account_tier             = "${var.storage_account_tier}"
